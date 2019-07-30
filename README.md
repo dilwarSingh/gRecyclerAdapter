@@ -1,0 +1,2 @@
+# genericRecyclerViewAdapter
+genericRecyclerViewAdapter
