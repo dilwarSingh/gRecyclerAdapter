@@ -1,0 +1,122 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+android {
+    compileSdkVersion 28
+    buildToolsVersion "29.0.0"
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.0.2'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+/*
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}*/
+
+artifacts {
+    //   archives javadocJar
+    archives sourcesJar
+}
+
+group = 'in.dilwar.genericRecyclerViewAdapter'
+version = '0.0.1'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'genericRecyclerViewAdapter'
+            description 'A library for finding out whether'
+            url 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample'
+            inceptionYear '2019'
+
+            packaging 'aar'
+            groupId 'in.dilwar.genericRecyclerViewAdapter'
+            artifactId 'genricRecyclerViewAdapter'
+            version '0.0.1'
+
+            licenses {
+                license {
+                    name 'GPL-3.0-only'
+                    url 'https://opensource.org/licenses/GPL-3.0'
+                }
+            }
+            scm {
+                connection 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
+                url 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample'
+
+            }
+            developers {
+                developer {
+                    id = 'dilwarSingh'
+                    name 'dilwarSingh'
+                    //gradlew install bintrayUpload
+                }
+            }
+        }
+    }
+}
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = localProperties.getProperty('user')
+    key = localProperties.get('key')
+    configurations = ['archives']
+    pkg {
+        repo = 'genericRecyclerViewAdapter'
+        name = 'genericRecyclerViewAdapter'
+        userOrg = 'evacuees'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
+        publish = true
+        version {
+            name = '0.0.1'
+            desc = 'genericRecyclerViewAdapter'
+            released = new Date()
+            vcsTag = 'v0.0.1'
+        }
+    }
+}
