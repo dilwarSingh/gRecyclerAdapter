@@ -8,7 +8,8 @@ import androidx.databinding.ViewDataBinding
  * @param M Data-Model to be used in RecyclerView Adapter
  * @param B DataBindingClass Name For the Layout
  */
-interface GRecyclerHolderListener<M, B : ViewDataBinding> {
+@FunctionalInterface
+interface GRecyclerBindingListener<M, B : ViewDataBinding> {
     /**
      * TODO List to tell RecyclerView how to populate Its Child Views
      *
@@ -16,6 +17,6 @@ interface GRecyclerHolderListener<M, B : ViewDataBinding> {
      * @param data data
      * @param position postion of the view
      */
-    fun populateItemHolder(binding: B, data: M, position: Int)
+    fun populateItemBindingHolder(binding: B, data: M, position: Int)
 
 }

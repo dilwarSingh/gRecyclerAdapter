@@ -20,15 +20,9 @@ fun <M, B : ViewDataBinding> setCustomAdapter(
     rv: RecyclerView,
     list: List<M>?,
     @LayoutRes layoutRes: Int,
-    populateListener: GRecyclerHolderListener<M, B>? = null
+    populateListener: GRecyclerBindingListener<M, B>
 ) {
-    val adapter =
-        if (populateListener == null) {
-            GRecyclerAdapter(layoutRes)
-        } else {
-            GRecyclerAdapter(layoutRes, populateListener)
-        }
-
+    val adapter = GRecyclerBindingAdapter(layoutRes, populateListener)
     rv.adapter = adapter.submitList(list)
 }
 

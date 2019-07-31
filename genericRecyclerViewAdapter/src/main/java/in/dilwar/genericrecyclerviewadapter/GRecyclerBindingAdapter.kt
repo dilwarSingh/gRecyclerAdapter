@@ -8,24 +8,24 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * GRecyclerAdapter
+ * GRecyclerBindingAdapter
  *
  * @param M Data-Model to be used in RecyclerView Adapter
  * @param B DataBindingClass Name For the Layout
  *
  * @property layoutRes Layout Resource from Displaying RecyclerView
  */
-class GRecyclerAdapter<M, B : ViewDataBinding>
+class GRecyclerBindingAdapter<M, B : ViewDataBinding>
     (
-    @LayoutRes val layoutRes: Int
-) : RecyclerView.Adapter<GRecyclerAdapter.ViewHolder<B>>() {
+    @LayoutRes val layoutRes: Int, val listener: GRecyclerBindingListener<M, B>
+) : RecyclerView.Adapter<GRecyclerBindingAdapter.ViewHolder<B>>() {
 
-    var listener: GRecyclerHolderListener<M, B>? = null
+    //   var listener: GRecyclerBindingListener<M, B>? = null
     private val dataList = mutableListOf<M>()
 
-    constructor(@LayoutRes layoutRes: Int, listener: GRecyclerHolderListener<M, B>?) : this(layoutRes) {
-        this.listener = listener
-    }
+    /*  constructor(@LayoutRes layoutRes: Int, listener: GRecyclerBindingListener<M, B>?) : this(layoutRes) {
+          this.listener = listener
+      }*/
 
 
     /**
@@ -34,7 +34,7 @@ class GRecyclerAdapter<M, B : ViewDataBinding>
      * @param list List of Data-Model
      * @return
      */
-    fun submitList(list: List<M>?): GRecyclerAdapter<M, B> {
+    fun submitList(list: List<M>?): GRecyclerBindingAdapter<M, B> {
         dataList.clear()
         dataList.addAll(list ?: emptyList())
         notifyDataSetChanged()
@@ -63,11 +63,8 @@ class GRecyclerAdapter<M, B : ViewDataBinding>
      * @param position postion of view
      */
     override fun onBindViewHolder(holder: ViewHolder<B>, position: Int) {
-      /*  if (listener == null) {
-            holder.b.setVariable(`in`.dilwar.genericrecyclerviewadapter.BR.data, dataList[position])
-        } else {*/
-            listener!!.populateItemHolder(holder.b, dataList[position], position)
-     //   }
+
+        listener.populateItemBindingHolder(holder.b, dataList[position], position)
         holder.b.executePendingBindings()
     }
 

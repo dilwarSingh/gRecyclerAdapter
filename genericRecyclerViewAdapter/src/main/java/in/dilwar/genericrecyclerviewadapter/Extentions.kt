@@ -1,21 +1,12 @@
 package `in`.dilwar.genericrecyclerviewadapter
 
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalAdapter
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalListener
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-/**
- *
- * @param M Data-Model to be used in RecyclerView Adapter
- * @param B DataBindingClass Name For the Layout
- * @param list List of Data-Model
- * @param layoutRes Layout Resource from Displaying RecyclerView
- * @return
- */
-fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(@LayoutRes layoutRes: Int, list: List<M>? = emptyList()): GRecyclerAdapter<M, B> {
-    val adapter = GRecyclerAdapter<M, B>(layoutRes)
-    return adapter.submitList(list)
-}
 
 /**
  * TODO
@@ -27,19 +18,19 @@ fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(@LayoutRes layoutRes
  * @param listner List to tell RecyclerView how to populate Its Child Views
  * @return
  */
-fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(
+fun <M, B : ViewDataBinding> RecyclerView.setGenericBindingAdapter(
     @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
     listner: (B, M, Int) -> Unit
-): GRecyclerAdapter<M, B> {
-    val adapter = GRecyclerAdapter(
+): GRecyclerBindingAdapter<M, B> {
+    val gAdapter = GRecyclerBindingAdapter(
         layoutRes,
-        object : GRecyclerHolderListener<M, B> {
-            override fun populateItemHolder(binding: B, data: M, position: Int) {
+        object : GRecyclerBindingListener<M, B> {
+            override fun populateItemBindingHolder(binding: B, data: M, position: Int) {
                 listner(binding, data, position)
             }
         })
-
-    return adapter.submitList(list)
+    this.adapter = gAdapter.submitList(list)
+    return gAdapter
 }
 
 /**
@@ -52,12 +43,39 @@ fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(
  * @param listner List to tell RecyclerView how to populate Its Child Views
  * @return
  */
-fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(
+fun <M, B : ViewDataBinding> RecyclerView.setGenericBindingAdapter(
     @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
-    listner: GRecyclerHolderListener<M, B>
-): GRecyclerAdapter<M, B> {
-    val gAdapter = GRecyclerAdapter(layoutRes, listner).submitList(list)
+    listner: GRecyclerBindingListener<M, B>
+): GRecyclerBindingAdapter<M, B> {
+    val gAdapter = GRecyclerBindingAdapter(layoutRes, listner).submitList(list)
     this.adapter = gAdapter
-    // val adapter = GRecyclerAdapter(layoutRes, listner)
+    // val adapter = GRecyclerBindingAdapter(layoutRes, listner)
     return gAdapter
 }
+
+
+fun <M> RecyclerView.setGenericNormalAdapter(
+    @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
+    listner: GRecyclerNormalListener<M>
+): GRecyclerNormalAdapter<M> {
+    val gAdapter = GRecyclerNormalAdapter(layoutRes, listner).submitList(list)
+    this.adapter = gAdapter
+    return gAdapter
+}
+
+fun <M> RecyclerView.setGenericNormalAdapter(
+    @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
+    listner: (View, M, Int) -> Unit
+): GRecyclerNormalAdapter<M> {
+    val gAdapter = GRecyclerNormalAdapter(layoutRes, object : GRecyclerNormalListener<M> {
+        override fun populateNormalItemHolder(view: View, data: M, position: Int) {
+            listner(view, data, position)
+        }
+
+    })
+    this.adapter = gAdapter.submitList(list)
+    return gAdapter
+}
+
+
+
