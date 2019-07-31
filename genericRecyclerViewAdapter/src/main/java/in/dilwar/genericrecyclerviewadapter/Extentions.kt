@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @param layoutRes Layout Resource from Displaying RecyclerView
  * @return
  */
-fun <M, B : ViewDataBinding> RecyclerView.setMyAdapter(@LayoutRes layoutRes: Int, list: List<M>? = emptyList()): GRecyclerAdapter<M, B> {
+fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(@LayoutRes layoutRes: Int, list: List<M>? = emptyList()): GRecyclerAdapter<M, B> {
     val adapter = GRecyclerAdapter<M, B>(layoutRes)
     return adapter.submitList(list)
 }
@@ -27,7 +27,7 @@ fun <M, B : ViewDataBinding> RecyclerView.setMyAdapter(@LayoutRes layoutRes: Int
  * @param listner List to tell RecyclerView how to populate Its Child Views
  * @return
  */
-fun <M, B : ViewDataBinding> RecyclerView.setMyAdapter(
+fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(
     @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
     listner: (B, M, Int) -> Unit
 ): GRecyclerAdapter<M, B> {
@@ -40,4 +40,24 @@ fun <M, B : ViewDataBinding> RecyclerView.setMyAdapter(
         })
 
     return adapter.submitList(list)
+}
+
+/**
+ * TODO
+ *
+ * @param M Data-Model to be used in RecyclerView Adapter
+ * @param B DataBindingClass Name For the Layout
+ * @param list List of Data-Model
+ * @param layoutRes Layout Resource from Displaying RecyclerView
+ * @param listner List to tell RecyclerView how to populate Its Child Views
+ * @return
+ */
+fun <M, B : ViewDataBinding> RecyclerView.setGenericAdapter(
+    @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
+    listner: GRecyclerHolderListener<M, B>
+): GRecyclerAdapter<M, B> {
+    val gAdapter = GRecyclerAdapter(layoutRes, listner).submitList(list)
+    this.adapter = gAdapter
+    // val adapter = GRecyclerAdapter(layoutRes, listner)
+    return gAdapter
 }

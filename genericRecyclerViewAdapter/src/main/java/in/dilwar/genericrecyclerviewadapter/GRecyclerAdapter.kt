@@ -63,13 +63,11 @@ class GRecyclerAdapter<M, B : ViewDataBinding>
      * @param position postion of view
      */
     override fun onBindViewHolder(holder: ViewHolder<B>, position: Int) {
-        if (listener != null) {
+      /*  if (listener == null) {
+            holder.b.setVariable(`in`.dilwar.genericrecyclerviewadapter.BR.data, dataList[position])
+        } else {*/
             listener!!.populateItemHolder(holder.b, dataList[position], position)
-        }/* if (listener == null) {
-            holder.b.setVariable(BR.data, dataList[position])
-        } else {
-            listener!!.populateItemHolder(holder.b, dataList[position], position)
-        }*/
+     //   }
         holder.b.executePendingBindings()
     }
 

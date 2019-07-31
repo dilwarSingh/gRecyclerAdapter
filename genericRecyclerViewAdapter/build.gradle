@@ -1,11 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
 
-
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        }
+    }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
@@ -36,7 +41,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.0.2'
 }
 
@@ -61,7 +67,7 @@ artifacts {
 }
 
 group = 'in.dilwar.genericRecyclerViewAdapter'
-version = '0.0.1'
+version = '0.0.7'
 
 install {
     repositories.mavenInstaller {
@@ -74,7 +80,7 @@ install {
             packaging 'aar'
             groupId 'in.dilwar.genericRecyclerViewAdapter'
             artifactId 'genricRecyclerViewAdapter'
-            version '0.0.1'
+            version '0.0.7'
 
             licenses {
                 license {
@@ -108,15 +114,15 @@ bintray {
     pkg {
         repo = 'genericRecyclerViewAdapter'
         name = 'genericRecyclerViewAdapter'
-        userOrg = 'evacuees'
+     //   userOrg = 'evacuees'
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
-            name = '0.0.1'
+            name = '0.0.7'
             desc = 'genericRecyclerViewAdapter'
             released = new Date()
-            vcsTag = 'v0.0.1'
+            vcsTag = 'v0.0.7'
         }
     }
 }
