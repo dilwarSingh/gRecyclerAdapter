@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
@@ -67,7 +68,7 @@ artifacts {
 }
 
 group = 'in.dilwar.genericRecyclerViewAdapter'
-version = '0.0.7'
+version = '0.0.8'
 
 install {
     repositories.mavenInstaller {
@@ -80,7 +81,7 @@ install {
             packaging 'aar'
             groupId 'in.dilwar.genericRecyclerViewAdapter'
             artifactId 'genricRecyclerViewAdapter'
-            version '0.0.7'
+            version '0.0.8'
 
             licenses {
                 license {
@@ -119,10 +120,10 @@ bintray {
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
-            name = '0.0.7'
+            name = '0.0.8'
             desc = 'genericRecyclerViewAdapter'
             released = new Date()
-            vcsTag = 'v0.0.7'
+            vcsTag = 'v0.0.8'
         }
     }
 }
