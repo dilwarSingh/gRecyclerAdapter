@@ -44,7 +44,7 @@ class KotlinActivity : AppCompatActivity(), GRecyclerBindingListener<DataModel, 
         rvNormalWithDataBinding.adapter = gNormalRecyclerAdapter
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"))
 
-        // Normal using with Without DataBinding
+        // Normal using Without DataBinding
         val gNormalWithoutDBAdapter = GRecyclerNormalAdapter(R.layout.item_recycler, this)
         rvNormalWithoutDataBinding.adapter = gNormalWithoutDBAdapter
         gNormalWithoutDBAdapter.submitList(DataProvider.getDummyList("NormalWithout-DB"))

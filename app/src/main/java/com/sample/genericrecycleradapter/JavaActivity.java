@@ -26,17 +26,17 @@ public class JavaActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        // Full Data-Binding Way
+        // Full DataBinding Way
         activityBinding.setList(DataProvider.getDummyList("Full-DB"));
         activityBinding.setPopulate(this);
 
-        // Normal using with databinding
+        // Normal using with DataBinding
         GRecyclerBindingAdapter<DataModel, ItemRecyclerBinding> gNormalRecyclerAdapter
                 = new GRecyclerBindingAdapter<>(R.layout.item_recycler, this);
         activityBinding.rvNormalWithDataBinding.setAdapter(gNormalRecyclerAdapter);
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"));
 
-        // Normal using with Without DataBinding
+        // Normal using Without DataBinding
         GRecyclerNormalAdapter<DataModel> gNormalWithoutDBAdapter = new GRecyclerNormalAdapter<>(R.layout.item_recycler, this);
         activityBinding.rvNormalWithoutDataBinding.setAdapter(gNormalWithoutDBAdapter);
         gNormalWithoutDBAdapter.submitList(DataProvider.getDummyList("NormalWithout-DB"));

@@ -68,7 +68,7 @@ artifacts {
 }
 
 group = 'in.dilwar.genericRecyclerViewAdapter'
-version = '0.0.8'
+version = '0.1.0'
 
 install {
     repositories.mavenInstaller {
@@ -81,7 +81,7 @@ install {
             packaging 'aar'
             groupId 'in.dilwar.genericRecyclerViewAdapter'
             artifactId 'genricRecyclerViewAdapter'
-            version '0.0.8'
+            version '0.1.0'
 
             licenses {
                 license {
@@ -120,10 +120,10 @@ bintray {
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
-            name = '0.0.8'
+            name = '0.1.0'
             desc = 'genericRecyclerViewAdapter'
             released = new Date()
-            vcsTag = 'v0.0.8'
+            vcsTag = 'v0.1.0'
         }
     }
 }
