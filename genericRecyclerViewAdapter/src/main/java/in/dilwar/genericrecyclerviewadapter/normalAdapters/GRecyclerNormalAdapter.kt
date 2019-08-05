@@ -20,7 +20,7 @@ class GRecyclerNormalAdapter<M>(@LayoutRes val layoutRes: Int, val listener: GRe
         primaryDataList.addAll(list ?: emptyList())
 
         filterList.clear()
-        filterList.addAll(filterList)
+        filterList.addAll(primaryDataList)
 
         notifyDataSetChanged()
         return this
@@ -45,9 +45,13 @@ class GRecyclerNormalAdapter<M>(@LayoutRes val layoutRes: Int, val listener: GRe
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val tempList = emptyList<M>().toMutableList()
 
-                primaryDataList.forEach {
-                    if (listener.itemFilter(constraint.toString(), it)) {
-                        tempList.add(it)
+                if (constraint.toString().isEmpty()) {
+                    tempList.addAll(primaryDataList)
+                } else {
+                    primaryDataList.forEach {
+                        if (listener.itemFilter(constraint.toString(), it)) {
+                            tempList.add(it)
+                        }
                     }
                 }
 
