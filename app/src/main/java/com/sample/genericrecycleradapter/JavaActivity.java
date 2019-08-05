@@ -36,6 +36,7 @@ public class JavaActivity extends AppCompatActivity
         activityBinding.rvNormalWithDataBinding.setAdapter(gNormalRecyclerAdapter);
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"));
 
+
         // Normal using Without DataBinding
         GRecyclerNormalAdapter<DataModel> gNormalWithoutDBAdapter = new GRecyclerNormalAdapter<>(R.layout.item_recycler, this);
         activityBinding.rvNormalWithoutDataBinding.setAdapter(gNormalWithoutDBAdapter);
