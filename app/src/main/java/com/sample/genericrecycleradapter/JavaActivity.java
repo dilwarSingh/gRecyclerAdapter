@@ -54,4 +54,10 @@ public class JavaActivity extends AppCompatActivity
         TextView textView = view.findViewById(R.id.text);
         textView.setText(data.getName());
     }
+
+
+    @Override
+    public boolean itemFilter(@NotNull String searchQuery, DataModel data) {
+        return false;
+    }
 }

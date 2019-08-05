@@ -17,8 +17,8 @@ import com.sample.genericrecycleradapter.databinding.ActivityMainBinding
 import com.sample.genericrecycleradapter.databinding.ItemRecyclerBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-class KotlinActivity : AppCompatActivity(), GRecyclerBindingListener<DataModel, ItemRecyclerBinding>,
-    GRecyclerNormalListener<DataModel> {
+class KotlinActivity : AppCompatActivity(), GRecyclerNormalListener<DataModel>,
+    GRecyclerBindingListener<DataModel, ItemRecyclerBinding> {
 
     lateinit var activityBinding: ActivityMainBinding
 
@@ -32,8 +32,7 @@ class KotlinActivity : AppCompatActivity(), GRecyclerBindingListener<DataModel, 
 
         // With kotlin-Extentions and DataBinding
         rvUsingKotlinExtentionsWithDataBinding.setGenericBindingAdapter<DataModel, ItemRecyclerBinding>(
-            R.layout.item_recycler,
-            DataProvider.getDummyList("KE-DB")
+            R.layout.item_recycler, DataProvider.getDummyList("KE-DB")
         ) { binding, data, postion ->
             binding.data = data
             binding.executePendingBindings()
@@ -43,6 +42,8 @@ class KotlinActivity : AppCompatActivity(), GRecyclerBindingListener<DataModel, 
         val gNormalRecyclerAdapter = GRecyclerBindingAdapter(R.layout.item_recycler, this)
         rvNormalWithDataBinding.adapter = gNormalRecyclerAdapter
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"))
+
+        gNormalRecyclerAdapter.filter.filter("2")
 
         // Normal using Without DataBinding
         val gNormalWithoutDBAdapter = GRecyclerNormalAdapter(R.layout.item_recycler, this)
@@ -65,5 +66,10 @@ class KotlinActivity : AppCompatActivity(), GRecyclerBindingListener<DataModel, 
     override fun populateNormalItemHolder(view: View, data: DataModel, position: Int) {
         val textView = view.findViewById<TextView>(R.id.text)
         textView.text = data.name
+    }
+
+
+    override fun itemFilter(searchQuery: String, data: DataModel): Boolean {
+        return data.name.contains(searchQuery)
     }
 }

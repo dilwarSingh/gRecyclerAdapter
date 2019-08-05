@@ -2,6 +2,8 @@ package `in`.dilwar.genericrecyclerviewadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -18,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 class GRecyclerBindingAdapter<M, B : ViewDataBinding>
     (
     @LayoutRes val layoutRes: Int, val listener: GRecyclerBindingListener<M, B>
-) : RecyclerView.Adapter<GRecyclerBindingAdapter.ViewHolder<B>>() {
+) : RecyclerView.Adapter<GRecyclerBindingAdapter.ViewHolder<B>>(), Filterable {
+
 
     //   var listener: GRecyclerBindingListener<M, B>? = null
-    private val dataList = mutableListOf<M>()
+    private val primaryDataList = mutableListOf<M>()
+    private val filterList = mutableListOf<M>()
 
     /*  constructor(@LayoutRes layoutRes: Int, listener: GRecyclerBindingListener<M, B>?) : this(layoutRes) {
           this.listener = listener
@@ -35,8 +39,12 @@ class GRecyclerBindingAdapter<M, B : ViewDataBinding>
      * @return
      */
     fun submitList(list: List<M>?): GRecyclerBindingAdapter<M, B> {
-        dataList.clear()
-        dataList.addAll(list ?: emptyList())
+        primaryDataList.clear()
+        primaryDataList.addAll(list ?: emptyList())
+
+        filterList.clear()
+        filterList.addAll(primaryDataList)
+
         notifyDataSetChanged()
         return this
     }
@@ -54,7 +62,7 @@ class GRecyclerBindingAdapter<M, B : ViewDataBinding>
         return ViewHolder(bindingUtil)
     }
 
-    override fun getItemCount() = dataList.size
+    override fun getItemCount() = filterList.size
 
     /**
      * onBindViewHolder
@@ -64,7 +72,7 @@ class GRecyclerBindingAdapter<M, B : ViewDataBinding>
      */
     override fun onBindViewHolder(holder: ViewHolder<B>, position: Int) {
 
-        listener.populateItemBindingHolder(holder.b, dataList[position], position)
+        listener.populateItemBindingHolder(holder.b, filterList[position], position)
         holder.b.executePendingBindings()
     }
 
@@ -75,4 +83,36 @@ class GRecyclerBindingAdapter<M, B : ViewDataBinding>
      * @property b is the type DataBinding Class
      */
     class ViewHolder<B : ViewDataBinding>(val b: B) : RecyclerView.ViewHolder(b.root)
+
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val tempList = emptyList<M>().toMutableList()
+
+                primaryDataList.forEach {
+                    if (listener.itemFilter(constraint.toString(), it)) {
+                        tempList.add(it)
+                    }
+                }
+
+                val filterResult = FilterResults()
+                filterResult.values = tempList
+                filterResult.count = tempList.size
+
+                return filterResult
+
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                val list = results?.values as? List<M> ?: emptyList()
+                filterList.clear()
+                filterList.addAll(list)
+                notifyDataSetChanged()
+            }
+
+        }
+    }
+
+
 }
