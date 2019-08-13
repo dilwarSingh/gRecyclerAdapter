@@ -1,4 +1,4 @@
-package `in`.dilwar
+package `in`.dilwar.genericrecyclerviewadapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter

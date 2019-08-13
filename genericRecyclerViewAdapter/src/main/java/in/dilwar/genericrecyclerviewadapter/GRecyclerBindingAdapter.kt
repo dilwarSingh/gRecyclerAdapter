@@ -1,4 +1,4 @@
-package `in`.dilwar
+package `in`.dilwar.genericrecyclerviewadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

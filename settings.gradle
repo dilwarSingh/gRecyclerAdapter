@@ -1,1 +1,1 @@
-include ':app', ':genericRecyclerViewAdapter', ':genericRecyclerAdapter'
+include ':app', ':genericRecyclerViewAdapter'
