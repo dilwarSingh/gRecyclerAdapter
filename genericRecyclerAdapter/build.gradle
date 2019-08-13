@@ -12,6 +12,7 @@ android {
             force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         }
     }
+
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
@@ -51,6 +52,7 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
+
 /*
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
@@ -80,7 +82,7 @@ install {
 
             packaging 'aar'
             groupId 'in.dilwar'
-            artifactId 'genricRecyclerViewAdapter'
+            artifactId 'genericRecyclerAdapter'
             version '0.1.5'
 
             licenses {
@@ -113,15 +115,15 @@ bintray {
     key = localProperties.get('key')
     configurations = ['archives']
     pkg {
-        repo = 'genericRecyclerViewAdapter'
-        name = 'genericRecyclerViewAdapter'
-     //   userOrg = 'evacuees'
+        repo = 'genericRecyclerAdapter'
+        name = 'genericRecyclerAdapter'
+        //   userOrg = 'evacuees'
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
             name = '0.1.5'
-            desc = 'genericRecyclerViewAdapter'
+            desc = 'genericRecyclerAdapter'
             released = new Date()
             vcsTag = 'v0.1.5'
         }

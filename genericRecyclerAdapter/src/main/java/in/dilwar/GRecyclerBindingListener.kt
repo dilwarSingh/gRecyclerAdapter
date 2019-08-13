@@ -1,4 +1,4 @@
-package `in`.dilwar.genericrecyclerviewadapter
+package `in`.dilwar
 
 import androidx.databinding.ViewDataBinding
 
