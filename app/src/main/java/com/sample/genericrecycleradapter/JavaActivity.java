@@ -9,10 +9,10 @@ import com.sample.genericrecycleradapter.dataProviders.DataModel;
 import com.sample.genericrecycleradapter.dataProviders.DataProvider;
 import com.sample.genericrecycleradapter.databinding.ActivityMainBinding;
 import com.sample.genericrecycleradapter.databinding.ItemRecyclerBinding;
-import in.dilwar.genericrecyclerviewadapter.GRecyclerBindingAdapter;
-import in.dilwar.genericrecyclerviewadapter.GRecyclerBindingListener;
-import in.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalAdapter;
-import in.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalListener;
+import in.dilwar.GRecyclerBindingAdapter;
+import in.dilwar.GRecyclerBindingListener;
+import in.dilwar.normalAdapters.GRecyclerNormalAdapter;
+import in.dilwar.normalAdapters.GRecyclerNormalListener;
 import org.jetbrains.annotations.NotNull;
 
 public class JavaActivity extends AppCompatActivity
@@ -30,11 +30,12 @@ public class JavaActivity extends AppCompatActivity
         activityBinding.setList(DataProvider.getDummyList("Full-DB"));
         activityBinding.setPopulate(this);
 
-        // Normal using with DataBinding
+        // Normal using with DataBinding and filter
         GRecyclerBindingAdapter<DataModel, ItemRecyclerBinding> gNormalRecyclerAdapter
                 = new GRecyclerBindingAdapter<>(R.layout.item_recycler, this);
         activityBinding.rvNormalWithDataBinding.setAdapter(gNormalRecyclerAdapter);
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"));
+        gNormalRecyclerAdapter.getFilter().filter("2");
 
 
         // Normal using Without DataBinding

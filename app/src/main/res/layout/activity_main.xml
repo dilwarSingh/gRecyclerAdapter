@@ -8,7 +8,7 @@
 
         <variable name="list" type="java.util.List&lt;DataModel>"/>
         <variable name="populate"
-                  type="in.dilwar.genericrecyclerviewadapter.GRecyclerBindingListener&lt;DataModel,ItemRecyclerBinding>"/>
+                  type="in.dilwar.GRecyclerBindingListener"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

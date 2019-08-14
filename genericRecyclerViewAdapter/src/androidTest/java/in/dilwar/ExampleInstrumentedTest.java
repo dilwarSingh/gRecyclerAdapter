@@ -1,4 +1,4 @@
-package in.dilwar.genericrecyclerviewadapter;
+package in.dilwar;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
