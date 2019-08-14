@@ -1,7 +1,7 @@
-package `in`.dilwar
+package `in`.dilwar.genericrecyclerviewadapter
 
-import `in`.dilwar.normalAdapters.GRecyclerNormalAdapter
-import `in`.dilwar.normalAdapters.GRecyclerNormalListener
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalAdapter
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalListener
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
@@ -67,14 +67,12 @@ fun <M> RecyclerView.setGenericNormalAdapter(
     @LayoutRes layoutRes: Int, list: List<M>? = emptyList(),
     listner: (View, M, Int) -> Unit
 ): GRecyclerNormalAdapter<M> {
-    val gAdapter = GRecyclerNormalAdapter(
-        layoutRes,
-        object : GRecyclerNormalListener<M> {
-            override fun populateNormalItemHolder(view: View, data: M, position: Int) {
-                listner(view, data, position)
-            }
+    val gAdapter = GRecyclerNormalAdapter(layoutRes, object : GRecyclerNormalListener<M> {
+        override fun populateNormalItemHolder(view: View, data: M, position: Int) {
+            listner(view, data, position)
+        }
 
-        })
+    })
     this.adapter = gAdapter.submitList(list)
     return gAdapter
 }

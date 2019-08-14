@@ -1,4 +1,4 @@
-package `in`.dilwar.normalAdapters
+package `in`.dilwar.genericrecyclerviewadapter.normalAdapters
 
 import android.view.View
 

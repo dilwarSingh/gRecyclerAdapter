@@ -1,11 +1,11 @@
 package com.sample.genericrecycleradapter
 
-import `in`.dilwar.GRecyclerBindingAdapter
-import `in`.dilwar.GRecyclerBindingListener
-import `in`.dilwar.normalAdapters.GRecyclerNormalAdapter
-import `in`.dilwar.normalAdapters.GRecyclerNormalListener
-import `in`.dilwar.setGenericBindingAdapter
-import `in`.dilwar.setGenericNormalAdapter
+import `in`.dilwar.genericrecyclerviewadapter.GRecyclerBindingAdapter
+import `in`.dilwar.genericrecyclerviewadapter.GRecyclerBindingListener
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalAdapter
+import `in`.dilwar.genericrecyclerviewadapter.normalAdapters.GRecyclerNormalListener
+import `in`.dilwar.genericrecyclerviewadapter.setGenericBindingAdapter
+import `in`.dilwar.genericrecyclerviewadapter.setGenericNormalAdapter
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -38,10 +38,11 @@ class KotlinActivity : AppCompatActivity(), GRecyclerNormalListener<DataModel>,
             binding.executePendingBindings()
         }
 
-        // Normal using with DataBinding and filter
+        // Normal using with DataBinding
         val gNormalRecyclerAdapter = GRecyclerBindingAdapter(R.layout.item_recycler, this)
         rvNormalWithDataBinding.adapter = gNormalRecyclerAdapter
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"))
+
         gNormalRecyclerAdapter.filter.filter("2")
 
         // Normal using Without DataBinding

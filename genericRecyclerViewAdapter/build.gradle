@@ -67,8 +67,8 @@ artifacts {
     archives sourcesJar
 }
 
-group = 'in.dilwar'
-version = '0.1.5'
+group = 'in.dilwar.genericRecyclerViewAdapter'
+version = '0.1.3'
 
 install {
     repositories.mavenInstaller {
@@ -79,9 +79,9 @@ install {
             inceptionYear '2019'
 
             packaging 'aar'
-            groupId 'in.dilwar'
+            groupId 'in.dilwar.genericRecyclerViewAdapter'
             artifactId 'genricRecyclerViewAdapter'
-            version '0.1.5'
+            version '0.1.3'
 
             licenses {
                 license {
@@ -97,7 +97,7 @@ install {
             developers {
                 developer {
                     id = 'dilwarSingh'
-                    name 'Dilwar Singh'
+                    name 'dilwarSingh'
                     //gradlew install bintrayUpload
                 }
             }
@@ -120,10 +120,10 @@ bintray {
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
-            name = '0.1.5'
+            name = '0.1.3'
             desc = 'genericRecyclerViewAdapter'
             released = new Date()
-            vcsTag = 'v0.1.5'
+            vcsTag = 'v0.1.3'
         }
     }
 }
