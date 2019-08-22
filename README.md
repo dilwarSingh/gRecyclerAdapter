@@ -3,15 +3,23 @@ or you can say
 ## GRecyclerAdapter
   
 
-    implementation'in.dilwar.genericRecyclerViewAdapter:genricRecyclerViewAdapter:0.1.0'
+    implementation'in.dilwar:genricRecyclerAdapter:1.0.0'
     
 
 Its an library can be used with Java or kotlin
 fully compatiable with Android-DataBinding and AndroidX 
 
-#[here](https://dilwarsingh.github.io/genericRecyclerViewAdapter#asde)
 
+## Normal With kotlin-Extentions
 
+    val gAdapter = recyclerView.setGenericNormalAdapter(**item_layout**)
+        { view, data, position ->
+        val textView = view.findViewById<TextView>(R.id.text)
+        textView.text = data.name
+        }
+    gAdapter.submitList(**data_list**)
+
+**Just thats all you need to setup and you are done with the RecyclerView adapter is attached and provided for future modifications**
 
 StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
 
