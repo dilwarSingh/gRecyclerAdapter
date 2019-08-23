@@ -3,7 +3,7 @@ or you can say
 ## GRecyclerAdapter
   
 
-    implementation'in.dilwar.genericRecyclerViewAdapter:genricRecyclerViewAdapter:0.1.0'
+    implementation 'in.dilwar:genericRecyclerAdapter:1.0.0'
     
 
 Its an library can be used with Java or kotlin
@@ -11,15 +11,16 @@ fully compatiable with Android-DataBinding and AndroidX
 
 
 ## Normal With kotlin-Extentions
-
  
-
-    val gAdapter = recyclerView.setGenericNormalAdapter(**item_layout**)
-        { view, data, position ->
-        val textView = view.findViewById<TextView>(R.id.text)
-        textView.text = data.name
-        }
-    gAdapter.submitList(**data_list**)
+    val gAdapter = recyclerView.setGenericNormalAdapter<DataModel>(R.layout.item_recycler/*Your Recycler Item Layout*/)
+            { view, data, position ->
+               /* val textView = view.findViewById<TextView>(R.id.text)
+                textView.text = data.name
+		
+		DO YOUR STUFF HERE
+		*/
+            }
+    gAdapter.submitList(emptyList()/*List to Populate data*/)
 
 **Just thats all you need to setup and you are done with the RecyclerView adapter is attached and provided for future modifications**
 
