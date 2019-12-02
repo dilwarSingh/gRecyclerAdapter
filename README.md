@@ -97,8 +97,8 @@ fully compatiable with Android-DataBinding and AndroidX
 		
      </layout>
 		
-#STEP 3 (Code in You Activity):
+#STEP 3 (Code in your Activity):
         
-	/* Initialization of you Data-Binding Activity Layout */
+	/* Initialization of your Data-Binding Activity Layout */
 	val activityBinding = DataBindingUtil.setContentView(this,R.layout.activity_main) 
             activityBinding.list = /* Provide a List of your Custom Model here */
