@@ -13,7 +13,7 @@ fully compatiable with Android-DataBinding and AndroidX
 ## DataBinding With kotlin-Extentions
  
     val gAdapter = recyclerView.setGenericBindingAdapter<DataModel, ItemRecyclerBinding/*Layout Binding Class*/>(
-    								R.layout.item_recycler/*Your Recycler Item Layout*/)
+    				R.layout.item_recycler/*Your Recycler Item Layout*/)
             { viewHolder, data, position ->
              /* viewHolder.binding.data = data
                 viewHolder.binding.executePendingBindings() */
@@ -43,7 +43,7 @@ fully compatiable with Android-DataBinding and AndroidX
     <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
  	<data>
         <variable name="_all" type="com.sample.genericrecycleradapter.dataProviders.DataModel"/>
-	 <!-- **variable** name must be `_all` -->
+	 <!-- `variable` name must be `_all` -->
 	 <!-- `type` will be your custom Model Class Reference -->
     	</data>
     	<LinearLayout
@@ -100,4 +100,4 @@ fully compatiable with Android-DataBinding and AndroidX
         
 	/* Initialization of you Data-Binding Activity Layout */
 	val activityBinding = DataBindingUtil.setContentView(this,R.layout.activity_main) 
-        activityBinding.list = /* Provide a List of your Custom Model here */
+            activityBinding.list = /* Provide a List of your Custom Model here */
