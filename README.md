@@ -3,7 +3,7 @@ or you can say
 ## GRecyclerAdapter
   
 
-    implementation 'in.dilwar:genericRecyclerAdapter:1.0.0'
+    implementation 'in.dilwar:genericRecyclerAdapter:1.1.6'
     
 
 Its an library can be used with Java or kotlin
