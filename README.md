@@ -37,6 +37,7 @@ fully compatiable with Android-DataBinding and AndroidX
 
 ## Full Data Binding
 **By this way you can keep all your RecyclerView BoilerPlate Code out of Activity**
+
 #STEP 1 (Create your Recycler Item Layout):
           
     <?xml version="1.0" encoding="utf-8"?>
