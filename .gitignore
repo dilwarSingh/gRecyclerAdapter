@@ -15,6 +15,7 @@ out/
 
 # Gradle files
 .gradle/
+.idea/
 build/
 
 # Local configuration file (sdk path, etc)
@@ -63,3 +64,6 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+libs/
+src/main/java/com/dilwar/bindingAdapters/GRecyclerBindingAdapter_old.kt
+src/main/res/drawable/

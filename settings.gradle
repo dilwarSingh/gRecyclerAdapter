@@ -1,1 +1,1 @@
-include ':app', ':genericRecyclerViewAdapter'
+include ':app', ':genericRecyclerAdapter', ':genericMultiviewAdapter', ':genericMultiviewAdapter-processors', ':genericMultiviewAdapter-annotations'

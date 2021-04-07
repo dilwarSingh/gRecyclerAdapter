@@ -2,7 +2,11 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="data" type="com.sample.genericrecycleradapter.dataProviders.DataModel"/>
+
+        <variable
+                name="_all"
+                type="com.sample.genericrecycleradapter.dataProviders.DataModel" />
+        <!-- variable name must be _all -->
     </data>
     <LinearLayout
             android:orientation="vertical"
@@ -11,7 +15,7 @@
 
         <TextView
                 tools:text="TextView"
-                android:text='@{data.name}'
+                android:text='@{_all.name}'
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text"

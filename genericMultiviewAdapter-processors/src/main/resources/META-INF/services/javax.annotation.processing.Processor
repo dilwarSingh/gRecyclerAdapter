@@ -1,0 +1,2 @@
+com.dilwar.processors.viewType.GRecyclerViewTypeProcessor
+com.dilwar.processors.viewFactory.GRecyclerFactoryProcessor

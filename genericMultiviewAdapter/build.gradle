@@ -1,0 +1,117 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        }
+    }
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
+    implementation 'androidx.core:core-ktx:1.1.0'
+    api project(path: ':genericMultiviewAdapter-annotations')
+}
+
+/*
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+artifacts {
+     archives sourcesJar
+}
+
+group = 'in.dilwar'
+version = '1.0.0'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'genericMultiViewAdapter'
+            description 'A library for finding out whether'
+            url 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample'
+            inceptionYear '2019'
+
+            packaging 'aar'
+            groupId 'in.dilwar'
+            artifactId 'genericMultiViewAdapter'
+            version '1.1.4'
+
+            licenses {
+                license {
+                    name 'GPL-3.0-only'
+                    url 'https://opensource.org/licenses/GPL-3.0'
+                }
+            }
+            scm {
+                connection 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
+                url 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample'
+
+            }
+            developers {
+                developer {
+                    id = 'dilwarSingh'
+                    name 'dilwarSingh'
+                    //gradlew install bintrayUpload
+                }
+            }
+        }
+    }
+}
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = localProperties.getProperty('user')
+    key = localProperties.get('key')
+    localProperties.get('dummyData')
+    configurations = ['archives']
+    pkg {
+        repo = 'genericMultiViewAdapter'
+        name = 'genericMultiViewAdapter'
+        //   userOrg = 'evacuees'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
+        publish = true
+        version {
+            name = '1.0.0'
+            desc = 'genericMultiViewAdapter'
+            released = new Date()
+            vcsTag = 'v1.0.0'
+        }
+    }
+}*/
