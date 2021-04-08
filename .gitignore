@@ -67,3 +67,4 @@ fastlane/readme.md
 libs/
 src/main/java/com/dilwar/bindingAdapters/GRecyclerBindingAdapter_old.kt
 src/main/res/drawable/
+!/.idea/misc.xml
