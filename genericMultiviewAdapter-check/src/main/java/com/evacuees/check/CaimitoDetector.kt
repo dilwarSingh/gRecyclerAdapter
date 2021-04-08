@@ -1,4 +1,4 @@
-package com.dilwar.annotations
+package com.evacuees.check
 
 import com.android.tools.lint.detector.api.*
 import com.android.tools.lint.detector.api.Category.Companion.USABILITY

@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "javax.validation:validation-api:$javax_validation"
+    implementation "com.android.tools.lint:lint-api:$lint"
+    implementation "com.android.tools.lint:lint-checks:$lint"
+}

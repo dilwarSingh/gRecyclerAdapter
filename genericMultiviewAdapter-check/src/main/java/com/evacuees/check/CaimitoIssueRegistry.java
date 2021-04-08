@@ -1,4 +1,4 @@
-package com.dilwar.annotations;
+package com.evacuees.check;
 
 import com.android.tools.lint.client.api.IssueRegistry;
 import com.android.tools.lint.detector.api.Issue;

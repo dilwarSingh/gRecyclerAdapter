@@ -1,16 +1,19 @@
-package com.dilwar.annotations;
+package com.evacuees.check;
 
+import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.support.AndroidxName;
 import com.android.tools.lint.checks.ApiDetector;
 import com.android.tools.lint.client.api.IssueRegistry;
+import com.android.tools.lint.client.api.JavaEvaluatorKt;
 import com.android.tools.lint.client.api.UElementHandler;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
+import com.android.tools.lint.detector.api.Lint;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
@@ -42,22 +45,12 @@ import org.jetbrains.uast.util.UastExpressionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.android.SdkConstants.ATTR_VALUE;
-import static com.android.SdkConstants.FQCN_SUPPRESS_LINT;
-import static com.android.SdkConstants.INT_DEF_ANNOTATION;
-import static com.android.SdkConstants.LONG_DEF_ANNOTATION;
-import static com.android.SdkConstants.STRING_DEF_ANNOTATION;
-import static com.android.SdkConstants.SUPPORT_ANNOTATIONS_PREFIX;
-import static com.android.tools.lint.client.api.JavaEvaluatorKt.TYPE_INT;
-import static com.android.tools.lint.client.api.JavaEvaluatorKt.TYPE_LONG;
-import static com.android.tools.lint.client.api.JavaEvaluatorKt.TYPE_STRING;
-import static com.android.tools.lint.detector.api.Lint.getAutoBoxedType;
 
 @SuppressWarnings("UnstableApiUsage")
 public class AnnotationDetector extends Detector implements SourceCodeScanner {
 
     public static final AndroidxName RESTRICT_TO_ANNOTATION =
-            AndroidxName.of(SUPPORT_ANNOTATIONS_PREFIX, "RestrictTo");
+            AndroidxName.of(SdkConstants.SUPPORT_ANNOTATIONS_PREFIX, "RestrictTo");
 
     public static final String GRecyclerViewFactory_ANNOTATION = "com.dilwar.annotations.GRecyclerViewFactory";
 
@@ -147,7 +140,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                 return;
             }
 
-            if (FQCN_SUPPRESS_LINT.equals(type)) {
+            if (SdkConstants.FQCN_SUPPRESS_LINT.equals(type)) {
                 UElement parent = annotation.getUastParent();
                 if (parent == null) {
                     return;
@@ -183,7 +176,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                     }
                 }
             } else if (RESTRICT_TO_ANNOTATION.isEquals(type)) {
-                UExpression attributeValue = annotation.findDeclaredAttributeValue(ATTR_VALUE);
+                UExpression attributeValue = annotation.findDeclaredAttributeValue(SdkConstants.ATTR_VALUE);
                 if (attributeValue == null) {
                     attributeValue = annotation.findDeclaredAttributeValue(null);
                 }
@@ -206,7 +199,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
 
                 }
             } else if (RESTRICT_TO_ANNOTATION.isEquals(type)) {
-                UExpression attributeValue = annotation.findDeclaredAttributeValue(ATTR_VALUE);
+                UExpression attributeValue = annotation.findDeclaredAttributeValue(SdkConstants.ATTR_VALUE);
                 if (attributeValue == null) {
                     attributeValue = annotation.findDeclaredAttributeValue(null);
                 }
@@ -237,12 +230,12 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                         for (PsiAnnotation a :
                                 mContext.getEvaluator().getAllAnnotations(cls, false)) {
                             String name = a.getQualifiedName();
-                            if (INT_DEF_ANNOTATION.isEquals(name)) {
-                                checkTargetType(annotation, TYPE_INT, TYPE_LONG, true);
-                            } else if (LONG_DEF_ANNOTATION.isEquals(name)) {
-                                checkTargetType(annotation, TYPE_LONG, null, true);
-                            } else if (STRING_DEF_ANNOTATION.isEquals(type)) {
-                                checkTargetType(annotation, TYPE_STRING, null, true);
+                            if (SdkConstants.INT_DEF_ANNOTATION.isEquals(name)) {
+                                checkTargetType(annotation, JavaEvaluatorKt.TYPE_INT, JavaEvaluatorKt.TYPE_LONG, true);
+                            } else if (SdkConstants.LONG_DEF_ANNOTATION.isEquals(name)) {
+                                checkTargetType(annotation, JavaEvaluatorKt.TYPE_LONG, null, true);
+                            } else if (SdkConstants.STRING_DEF_ANNOTATION.isEquals(type)) {
+                                checkTargetType(annotation, JavaEvaluatorKt.TYPE_STRING, null, true);
                             }
                         }
                     }
@@ -338,10 +331,10 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                     || typeName.equals(type3)
                     || typeName.equals(type4))) {
                 // Autoboxing? You can put @DrawableRes on a java.lang.Integer for example
-                if (typeName.equals(getAutoBoxedType(type1))
-                        || type2 != null && typeName.equals(getAutoBoxedType(type2))
-                        || type3 != null && typeName.equals(getAutoBoxedType(type3))
-                        || type4 != null && typeName.equals(getAutoBoxedType(type4))) {
+                if (typeName.equals(Lint.getAutoBoxedType(type1))
+                        || type2 != null && typeName.equals(Lint.getAutoBoxedType(type2))
+                        || type3 != null && typeName.equals(Lint.getAutoBoxedType(type3))
+                        || type4 != null && typeName.equals(Lint.getAutoBoxedType(type4))) {
                     return;
                 }
 
@@ -355,7 +348,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                 } else {
                     expectedTypes = type1;
                 }
-                if (typeName.equals(TYPE_STRING)) {
+                if (typeName.equals(JavaEvaluatorKt.TYPE_STRING)) {
                     typeName = "String";
                 }
                 String message =
