@@ -3,9 +3,10 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
 
     configurations.all {
         resolutionStrategy {
@@ -13,18 +14,16 @@ android {
         }
     }
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versionCode
+        versionName versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled minify
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,19 +31,19 @@ android {
         enabled = true
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility = jdkVersion
+        targetCompatibility = jdkVersion
     }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
-    implementation 'androidx.core:core-ktx:1.2.0-rc01'
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.recyclerview:recyclerview:$recyclerView"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:$ktx"
 }
 
 task sourcesJar(type: Jar) {
@@ -68,7 +67,7 @@ artifacts {
 }
 
 group = 'in.dilwar'
-version = '1.1.6'
+version = libVersion
 
 install {
     repositories.mavenInstaller {
@@ -76,12 +75,12 @@ install {
             name 'genericRecyclerAdapter'
             description 'A library for finding out whether'
             url 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample'
-            inceptionYear '2019'
+            inceptionYear inception_year
 
             packaging 'aar'
             groupId 'in.dilwar'
             artifactId 'genericRecyclerAdapter'
-            version '1.1.6'
+            version libVersion
 
             licenses {
                 license {
@@ -120,10 +119,10 @@ bintray {
         vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
         publish = true
         version {
-            name = '1.1.6'
+            name = libVersion
             desc = 'genericRecyclerAdapter'
             released = new Date()
-            vcsTag = 'v1.1.6'
+            vcsTag = "v$libVersion"
         }
     }
 }
