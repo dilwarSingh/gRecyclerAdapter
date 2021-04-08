@@ -1,1 +1,6 @@
-include ':app', ':genericRecyclerAdapter', ':genericMultiviewAdapter', ':genericMultiviewAdapter-processors', ':genericMultiviewAdapter-annotations'
+include ':app',
+        ':genericRecyclerAdapter',
+        ':genericMultiviewAdapter',
+        ':genericMultiviewAdapter-processors',
+        ':genericMultiviewAdapter-annotations'
+include ':genericMultiviewAdapter-check'

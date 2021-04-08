@@ -3,19 +3,16 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:support-annotations:28.0.0'
-    implementation 'com.google.auto.service:auto-service:1.0-rc6'
-
-    implementation 'com.squareup:kotlinpoet:1.2.0'
-  //  implementation 'com.squareup:javapoet:1.11.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.android.support:support-annotations:$supportLibraryVersion"
+    implementation "com.google.auto.service:auto-service:$auto_service"
+    implementation "com.squareup:kotlinpoet:$kotlinpoet"
     implementation project(path: ':genericMultiviewAdapter-annotations')
 }
 
-sourceCompatibility = "8"
-targetCompatibility = "8"
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
 buildscript {
-    ext.kotlin_version = '1.3.50'
     repositories {
         mavenCentral()
     }
@@ -28,11 +25,11 @@ repositories {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = jdkVersion
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = jdkVersion
     }
 }
