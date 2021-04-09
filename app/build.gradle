@@ -42,4 +42,5 @@ dependencies {
     /*implementation project(path: ':genericMultiviewAdapter-annotations')*/
     implementation project(path: ':genericMultiviewAdapter')
     kapt project(path: ':genericMultiviewAdapter-processors')
+    lintChecks project(path: ':genericMultiviewAdapter-check')
 }

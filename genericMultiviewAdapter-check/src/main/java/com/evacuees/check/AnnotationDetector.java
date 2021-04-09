@@ -140,7 +140,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                 return;
             }
 
-            if (SdkConstants.FQCN_SUPPRESS_LINT.equals(type)) {
+         /*   if (SdkConstants.FQCN_SUPPRESS_LINT.equals(type)) {
                 UElement parent = annotation.getUastParent();
                 if (parent == null) {
                     return;
@@ -175,7 +175,8 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
                         }
                     }
                 }
-            } else if (RESTRICT_TO_ANNOTATION.isEquals(type)) {
+            } else */
+            if (RESTRICT_TO_ANNOTATION.isEquals(type)) {
                 UExpression attributeValue = annotation.findDeclaredAttributeValue(SdkConstants.ATTR_VALUE);
                 if (attributeValue == null) {
                     attributeValue = annotation.findDeclaredAttributeValue(null);
@@ -361,7 +362,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
         }
 
 
-        private boolean checkSuppressLint(@NonNull UAnnotation node, @NonNull String id) {
+      /*  private boolean checkSuppressLint(@NonNull UAnnotation node, @NonNull String id) {
             IssueRegistry registry = mContext.getDriver().getRegistry();
             Issue issue = registry.getIssue(id);
             // Special-case the ApiDetector issue, since it does both source file analysis
@@ -386,7 +387,7 @@ public class AnnotationDetector extends Detector implements SourceCodeScanner {
 
             return true;
         }
-
+*/
     }
 
 }

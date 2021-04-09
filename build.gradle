@@ -15,8 +15,11 @@ buildscript {
         recyclerView = "1.1.0"
         javax_validation = "2.0.1.Final"
         lint = "30.0.0-alpha13"
-        auto_service = "1.0-rc6"
-        kotlinpoet = "1.2.0"
+        auto_service = '1.0'
+        kotlinpoet = '1.8.0'
+        junit = "4.12"
+        assertj_core = "3.0.0"
+        mockito_core = "1.9.5"
 
         buildTools = "30.0.3"
         compileSdk = 30

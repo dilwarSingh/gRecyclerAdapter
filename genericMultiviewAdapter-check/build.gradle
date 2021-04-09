@@ -9,8 +9,32 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "javax.validation:validation-api:$javax_validation"
-    implementation "com.android.tools.lint:lint-api:$lint"
-    implementation "com.android.tools.lint:lint-checks:$lint"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compileOnly "com.android.tools.lint:lint-api:$lint"
+    compileOnly "com.android.tools.lint:lint-checks:$lint"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "org.assertj:assertj-core:$assertj_core"
+    testImplementation "org.mockito:mockito-core:$mockito_core"
+    testImplementation "com.android.tools.lint:lint:$lint"
+    testImplementation "com.android.tools.lint:lint-tests:$lint"
+    testImplementation "com.android.tools:testutils:$lint"
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+    }
+    test {
+        java {
+            srcDirs = ["src/test/java"]
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.evacuees.check.AdapterIssueRegistry")
+    }
 }

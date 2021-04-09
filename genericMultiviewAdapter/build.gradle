@@ -41,6 +41,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     api project(path: ':genericMultiviewAdapter-annotations')
+    lintChecks project(path: ':genericMultiviewAdapter-check')
 }
 
 /*
