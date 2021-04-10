@@ -1,11 +1,11 @@
 package com.dilwar.processors.viewFactory.classGenrator
 
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.classBaseRAdapter
-import com.dilwar.hits.Constants.classGViewType
-import com.dilwar.hits.Constants.classRecyclerView_ViewHolder
-import com.dilwar.hits.Constants.classViewGroup
-import com.dilwar.hits.Validator
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.classBaseRAdapter
+import com.dilwar.common.Constants.classGViewType
+import com.dilwar.common.Constants.classRecyclerView_ViewHolder
+import com.dilwar.common.Constants.classViewGroup
+import com.dilwar.common.Validator
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.IOException

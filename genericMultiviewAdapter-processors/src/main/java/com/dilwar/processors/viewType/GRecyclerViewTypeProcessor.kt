@@ -2,13 +2,13 @@ package com.dilwar.processors.viewType
 
 import android.support.annotation.LayoutRes
 import com.dilwar.annotations.GRecyclerViewType
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.GenerationPackage
-import com.dilwar.hits.Constants.VIEW_TYPE_SUFFIX
-import com.dilwar.hits.Constants.classGViewLayout
-import com.dilwar.hits.Constants.classRecyclerView_ViewHolder
-import com.dilwar.hits.PreProcessor
-import com.dilwar.hits.Validator
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.GenerationPackage
+import com.dilwar.common.Constants.VIEW_TYPE_SUFFIX
+import com.dilwar.common.Constants.classGViewLayout
+import com.dilwar.common.Constants.classRecyclerView_ViewHolder
+import com.dilwar.common.PreProcessor
+import com.dilwar.common.Validator
 import com.google.auto.service.AutoService
 import com.squareup.kotlinpoet.*
 import java.io.IOException

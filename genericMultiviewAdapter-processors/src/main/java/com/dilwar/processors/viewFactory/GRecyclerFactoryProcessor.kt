@@ -1,7 +1,7 @@
 package com.dilwar.processors.viewFactory
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.PreProcessor
+import com.dilwar.common.PreProcessor
 import com.dilwar.processors.viewFactory.classGenrator.RecyclerAdpaterGenerator
 import com.dilwar.processors.viewFactory.classGenrator.VHFactoryGenerator
 import com.dilwar.processors.viewFactory.classGenrator.ViewHoldersGenerator

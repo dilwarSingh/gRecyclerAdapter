@@ -1,4 +1,4 @@
-package com.dilwar.hits
+package com.dilwar.common
 
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.Filer

@@ -1,10 +1,10 @@
 package com.dilwar.processors.viewFactory.classGenrator
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.classView
-import com.dilwar.hits.Constants.classViewDataBinding
-import com.dilwar.hits.Constants.getOnlyClassName
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.classView
+import com.dilwar.common.Constants.classViewDataBinding
+import com.dilwar.common.Constants.getOnlyClassName
 import com.squareup.kotlinpoet.*
 import java.io.IOException
 import javax.annotation.processing.Filer

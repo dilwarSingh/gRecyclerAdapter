@@ -1,15 +1,15 @@
 package com.dilwar.processors.viewFactory.classGenrator
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.classDataBindingUtil
-import com.dilwar.hits.Constants.classGViewType
-import com.dilwar.hits.Constants.classLayoutInflater
-import com.dilwar.hits.Constants.classView
-import com.dilwar.hits.Constants.classViewDataBinding
-import com.dilwar.hits.Constants.classViewGroup
-import com.dilwar.hits.Constants.getOnlyClassName
-import com.dilwar.hits.Validator
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.classDataBindingUtil
+import com.dilwar.common.Constants.classGViewType
+import com.dilwar.common.Constants.classLayoutInflater
+import com.dilwar.common.Constants.classView
+import com.dilwar.common.Constants.classViewDataBinding
+import com.dilwar.common.Constants.classViewGroup
+import com.dilwar.common.Constants.getOnlyClassName
+import com.dilwar.common.Validator
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.IOException

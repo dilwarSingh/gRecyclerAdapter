@@ -1,4 +1,4 @@
-package com.dilwar.hits
+package com.dilwar.common
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
