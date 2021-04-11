@@ -43,15 +43,3 @@ abstract class BaseMultiViewAdapter<M> : RecyclerView.Adapter<RecyclerView.ViewH
         (list[position] as GViewLayout).onBindViewHolder(holder)
     }
 }
-
-
-class Dog {
-
-    fun bark() {
-        Log.d(TAG, "woof! woof!")
-    }
-
-    companion object {
-        private const val TAG = "Sample"
-    }
-}
