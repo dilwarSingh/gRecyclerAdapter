@@ -34,7 +34,7 @@ object ViewTypeValidator : Validator() {
         if (typeMirror.isEmpty()) {
             messager!!.printMessage(
                 Diagnostic.Kind.ERROR,
-                "Class doesn't implement anything implement it with GViewType"
+                "Class must implement GViewType interface"
             )
             return true
         } else {

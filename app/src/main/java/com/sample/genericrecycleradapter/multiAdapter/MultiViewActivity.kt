@@ -17,11 +17,12 @@ class MultiViewActivity : AppCompatActivity() {
         activityMultiViewBinding.multiRecycler.adapter = chatFactoryAdapter
 
         activityMultiViewBinding.sendBt.setOnClickListener {
-            com.sample.genericrecycleradapter.multiAdapter.MessageModel(
+            MessageModel(
                 activityMultiViewBinding.switch1.isChecked,
                 activityMultiViewBinding.messageET.text.toString()
             ).apply {
                 chatFactoryAdapter.addData(this)
+                activityMultiViewBinding.messageET.setText("")
             }
             activityMultiViewBinding.multiRecycler.smoothScrollToPosition(chatFactoryAdapter.list.size - 1)
         }

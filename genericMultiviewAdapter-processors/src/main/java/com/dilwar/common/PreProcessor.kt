@@ -10,15 +10,15 @@ import kotlin.reflect.KClass
 
 abstract class PreProcessor(val clazz: KClass<*>) : AbstractProcessor() {
 
-    protected var filer: Filer? = null
-    protected var messager: Messager? = null
+    protected lateinit var filer: Filer
+    protected lateinit var messager: Messager
     protected var elements: Elements? = null
 
     @Synchronized
     override fun init(processingEnvironment: ProcessingEnvironment) {
         super.init(processingEnvironment)
-        filer = processingEnvironment.filer
-        messager = processingEnvironment.messager
+        filer = processingEnvironment.filer!!
+        messager = processingEnvironment.messager!!
         elements = processingEnvironment.elementUtils
     }
 

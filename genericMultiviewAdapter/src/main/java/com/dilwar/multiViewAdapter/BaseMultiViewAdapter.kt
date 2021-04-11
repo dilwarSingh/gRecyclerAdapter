@@ -31,7 +31,7 @@ abstract class BaseMultiViewAdapter<M> : RecyclerView.Adapter<RecyclerView.ViewH
 
 
     override fun getItemViewType(position: Int): Int {
-        return (list[position] as GViewLayout).getLayoutId()
+        return (list[position] as GViewLayout).getViewType()
     }
 
     @CallSuper
