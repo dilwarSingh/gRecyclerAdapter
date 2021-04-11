@@ -15,7 +15,6 @@ import com.sample.genericrecycleradapter.dataProviders.DataModel
 import com.sample.genericrecycleradapter.dataProviders.DataProvider
 import com.sample.genericrecycleradapter.databinding.ActivityMainBinding
 import com.sample.genericrecycleradapter.databinding.ItemRecyclerBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class KotlinActivity : AppCompatActivity(), GRecyclerNormalListener<DataModel>,
     GRecyclerBindingListener<DataModel, ItemRecyclerBinding>,
@@ -38,7 +37,7 @@ class KotlinActivity : AppCompatActivity(), GRecyclerNormalListener<DataModel>,
 
         // With kotlin-Extentions and DataBinding
         val rvUsingKotlinExtentionsWithDataBindingAdapter =
-            rvUsingKotlinExtentionsWithDataBinding.setGenericBindingAdapter<DataModel, ItemRecyclerBinding>(
+            activityBinding.rvUsingKotlinExtentionsWithDataBinding.setGenericBindingAdapter<DataModel, ItemRecyclerBinding>(
                 R.layout.item_recycler
             ) { vh, data, postion ->
                 vh.binding.all = data
@@ -50,17 +49,17 @@ class KotlinActivity : AppCompatActivity(), GRecyclerNormalListener<DataModel>,
             R.layout.item_recycler,
             this
         )
-        rvNormalWithDataBinding.adapter = gNormalRecyclerAdapter
+        activityBinding.rvNormalWithDataBinding.adapter = gNormalRecyclerAdapter
         gNormalRecyclerAdapter.submitList(DataProvider.getDummyList("NormalWith-DB"))
         gNormalRecyclerAdapter.filter.filter("2")
 
         // Normal using Without DataBinding
         val gNormalWithoutDBAdapter = GRecyclerNormalAdapter(R.layout.item_recycler, this)
-        rvNormalWithoutDataBinding.adapter = gNormalWithoutDBAdapter
+        activityBinding.rvNormalWithoutDataBinding.adapter = gNormalWithoutDBAdapter
         gNormalWithoutDBAdapter.submitList(DataProvider.getDummyList("NormalWithout-DB"))
 
         // Normal With kotlin-Extentions
-        val gAdapter = rvNormalWithExtentions.setGenericNormalAdapter<DataModel>(
+        val gAdapter = activityBinding.rvNormalWithExtentions.setGenericNormalAdapter<DataModel>(
             R.layout.item_recycler/*Your Recycler Item Layout*/
         ) { viewHolder, data, position ->
             val textView = viewHolder.view.findViewById<TextView>(R.id.text)

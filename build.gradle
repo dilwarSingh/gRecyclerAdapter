@@ -3,7 +3,7 @@
 buildscript {
 
     ext {
-        gradle_version = "3.5.2"
+        gradle_version = "4.0.0"
         kotlin_version = '1.4.32'
         gradle_bintray = "1.8.4"
         dcendents_gradle = "2.1"
