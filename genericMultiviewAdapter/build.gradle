@@ -40,8 +40,13 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     api project(path: ':genericMultiviewAdapter-annotations')
-}
+    api project(path: ':genericMultiviewAdapter-processors')
 
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 /*
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs

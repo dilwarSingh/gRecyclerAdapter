@@ -24,7 +24,7 @@ buildscript {
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
-        libVersion = '1.1.6'
+        libVersion = '2.0.1'
 
         inception_year = '2021'
         jdkVersion = JavaVersion.VERSION_1_8
@@ -43,6 +43,8 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+
+
 }
 
 allprojects {
