@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: "com.mobbeel.plugin"
+apply plugin: 'com.kezong.fat-aar'
 
 android {
     compileSdkVersion compileSdk
@@ -36,15 +36,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation fileTree(include: ['genericMultiviewAdapter-annotations.jar'], dir: '/genericMultiviewAdapter-annotations/build/libs')
 
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.recyclerview:recyclerview:$recyclerView"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
-    api project(path: ':genericMultiviewAdapter-annotations')
-    api project(path: ':genericMultiviewAdapter-processors')
+    embed project(path: ':genericMultiviewAdapter-annotations', configuration: 'default')
+    embed project(path: ':genericMultiviewAdapter-processors', configuration: 'default')
 
 }
 task sourcesJar(type: Jar) {
