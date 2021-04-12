@@ -38,29 +38,18 @@ compileTestKotlin {
         jvmTarget = jdkVersion
     }
 }
-sourceSets {
-    anno
-    proc
-}
-sourceSets.all { set ->
-    def jarTask = task("${set.name}Jar", type: Jar) {
-        baseName = "$set.name"
-        from set.output
-    }
 
-    artifacts {
-        archives jarTask
-    }
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
-jar {
-    from sourceSets.anno.output
-    from sourceSets.proc.output
-}
+/*
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}*/
 
-// this step is necessary when installing both jars in the local maven repository
-install {
-    repositories.mavenInstaller {
-        addFilter('anno') { artifact, file -> artifact.name.endsWith('anno') }
-        addFilter('proc') { artifact, file -> artifact.name.endsWith('proc') }
-    }
+artifacts {
+    archives sourcesJar
+  //  archives javadocJar
 }
