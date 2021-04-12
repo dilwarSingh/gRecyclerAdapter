@@ -43,7 +43,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     embed project(path: ':genericMultiviewAdapter-annotations', configuration: 'default')
-    embed project(path: ':genericMultiviewAdapter-processors', configuration: 'default')
+    kapt project(path: ':genericMultiviewAdapter-processors')
 
 }
 task sourcesJar(type: Jar) {
