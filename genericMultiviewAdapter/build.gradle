@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: "com.mobbeel.plugin"
+
 android {
     compileSdkVersion compileSdk
     buildToolsVersion buildTools
@@ -34,10 +36,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['genericMultiviewAdapter-annotations.jar'], dir: '/genericMultiviewAdapter-annotations/build/libs')
+
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.recyclerview:recyclerview:$recyclerView"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     api project(path: ':genericMultiviewAdapter-annotations')
     api project(path: ':genericMultiviewAdapter-processors')
@@ -47,6 +51,18 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
+
+artifacts {
+    archives sourcesJar
+}/*
+task copyToLib(type: Copy) {
+    from findJarsByGroup(configurations.compile, 'com.dilwar')
+    into "$buildSrc/lib"
+}
+
+def findJarsByGroup(Configuration config, groupName) {
+    configurations.compile.files { it.group.equals(groupName) }
+}*/
 /*
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
