@@ -39,8 +39,12 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktx"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
     implementation "androidx.recyclerview:recyclerview:$recyclerView"
-    implementation project(path: ':genericRecyclerAdapter')
-    /*implementation project(path: ':genericMultiviewAdapter-annotations')*/
-    implementation project(path: ':genericMultiviewAdapter')
-    implementation project(path: ':genericMultiviewAdapter-processors')
+
+
+    //implementation "com.github.dilwarSingh.gRecyclerAdapter:genericMultiviewAdapter:c48c2eb464"
+    //implementation "com.github.dilwarSingh.gRecyclerAdapter:genericRecyclerAdapter:c48c2eb464"
+    //kapt "com.github.dilwarSingh.gRecyclerAdapter:genericMultiviewAdapter-processors:c48c2eb464"
+
+     implementation project(path: ':gRecyclerAdapter')
+     kapt project(path: ':gRecyclerAdapter-processors')
 }

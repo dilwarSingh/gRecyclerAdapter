@@ -13,9 +13,9 @@ open class ReceiveMessageType : GViewType<MessageModel> {
 
     override fun layoutId() = R.layout.item_recieve_message;
 
-    override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, data: MessageModel) {
+    override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, model: MessageModel) {
 
-        recyclerViewHolder.itemView.findViewById<TextView>(R.id.text).text = data.msg
+        recyclerViewHolder.itemView.findViewById<TextView>(R.id.text).text = model.msg
 
         /* val holder =
              recyclerViewHolder as ChatFactoryViewHolders.RecieveMessageTypeRow
