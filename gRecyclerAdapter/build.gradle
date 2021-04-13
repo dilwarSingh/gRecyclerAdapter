@@ -48,8 +48,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     //embed project(path: ':gRecyclerAdapter-annotations', configuration: 'default')
-    implementation project(path: ':gRecyclerAdapter-annotations')
-    kapt project(path: ':gRecyclerAdapter-processors')
+    //implementation project(path: ':gRecyclerAdapter-annotations')
+    //kapt project(path: ':gRecyclerAdapter-processors')
 
 }
 task sourcesJar(type: Jar) {
