@@ -9,7 +9,7 @@ group = groupIdNameP
 version = libVersion
 
 sourceSets {
-    processor
+    annotation
 }
 
 sourceSets.all { set ->
@@ -33,7 +33,6 @@ dependencies {
     //api project(path: ':gRecyclerAdapter-annotations')
 }
 
-
 compileKotlin {
     kotlinOptions {
         jvmTarget = jdkVersion
@@ -46,13 +45,13 @@ compileTestKotlin {
 }
 
 jar {
-    from sourceSets.processor.output
+    from sourceSets.annotation.output
 }
 
 // this step is necessary when installing both jars in the local maven repository
 install {
     repositories.mavenInstaller {
-        addFilter('processor') { artifact, file -> artifact.name.endsWith('processor') }
+        addFilter('annotation') { artifact, file -> artifact.name.endsWith('annotation') }
     }
 }
 /*
