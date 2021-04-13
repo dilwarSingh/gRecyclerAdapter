@@ -25,6 +25,7 @@ buildscript {
         versionCode = 1
         versionName = "1.0"
         libVersion = '2.0.1'
+        groupIdNameP = 'in.dilwar'
 
         inception_year = '2021'
         jdkVersion = JavaVersion.VERSION_1_8

@@ -67,7 +67,7 @@ afterEvaluate {
                 from components.release
 
                 // You can then customize attributes of the publication as shown below.
-                groupId = 'in.dilwar'
+                groupId = groupIdNameP
                 artifactId = 'gRecyclerAdapter'
                 version = libVersion
             }
@@ -76,7 +76,7 @@ afterEvaluate {
                 // Applies the component for the debug build variant.
                 from components.debug
 
-                groupId = 'in.dilwar'
+                groupId = groupIdNameP
                 artifactId = 'gRecyclerAdapter-debug'
                 version = libVersion
             }
@@ -84,5 +84,5 @@ afterEvaluate {
     }
 }
 
-group = 'in.dilwar'
+group = groupIdNameP
 version = libVersion
