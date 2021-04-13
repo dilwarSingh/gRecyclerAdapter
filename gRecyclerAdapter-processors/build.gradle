@@ -28,8 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "com.android.support:support-annotations:$supportLibraryVersion"
-    compileOnly "com.google.auto.service:auto-service:$auto_service"
-    annotationProcessor "com.google.auto.service:auto-service:$auto_service"
+    implementation "com.google.auto.service:auto-service:$auto_service"
     implementation "com.squareup:kotlinpoet:$kotlinpoet"
     //api project(path: ':gRecyclerAdapter-annotations')
 }
