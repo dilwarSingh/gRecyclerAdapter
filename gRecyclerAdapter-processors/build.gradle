@@ -9,7 +9,7 @@ group = groupIdNameP
 version = libVersion
 
 sourceSets {
-    annotation
+    annotations
 }
 
 sourceSets.all { set ->
@@ -45,13 +45,13 @@ compileTestKotlin {
 }
 
 jar {
-    from sourceSets.annotation.output
+    from sourceSets.annotations.output
 }
 
 // this step is necessary when installing both jars in the local maven repository
 install {
     repositories.mavenInstaller {
-        addFilter('annotation') { artifact, file -> artifact.name.endsWith('annotation') }
+        addFilter('annotations') { artifact, file -> artifact.name.endsWith('gRecyclerAdapter-annotations') }
     }
 }
 /*

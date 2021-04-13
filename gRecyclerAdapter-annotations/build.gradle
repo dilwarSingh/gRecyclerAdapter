@@ -9,7 +9,7 @@ group = groupIdNameP
 version = libVersion
 
 sourceSets {
-    processor
+    processors
 }
 
 sourceSets.all { set ->
@@ -44,12 +44,12 @@ compileTestKotlin {
 }
 
 jar {
-    from sourceSets.processor.output
+    from sourceSets.processors.output
 }
 
 // this step is necessary when installing both jars in the local maven repository
 install {
     repositories.mavenInstaller {
-        addFilter('processor') { artifact, file -> artifact.name.endsWith('processor') }
+        addFilter('processors') { artifact, file -> artifact.name.endsWith('gRecyclerAdapter-processors') }
     }
 }
