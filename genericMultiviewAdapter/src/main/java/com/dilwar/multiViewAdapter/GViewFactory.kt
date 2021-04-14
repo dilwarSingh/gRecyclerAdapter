@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
 interface GViewFactory<T> {
-
-    @LayoutRes
-    fun getViewTypeLayoutId(data: T): Int
+    fun getViewType(data: T): Int
 
     companion object {
         fun getView(parent: ViewGroup, layout: Int) =

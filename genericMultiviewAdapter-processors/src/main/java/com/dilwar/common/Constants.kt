@@ -1,9 +1,14 @@
-package com.dilwar.hits
+package com.dilwar.common
 
+import com.dilwar.processors.viewType.GResourcesGenerator
 import com.squareup.kotlinpoet.ClassName
 import javax.lang.model.type.TypeMirror
 
 object Constants {
+
+    const val GenerationPackage = "g.recycler"
+    const val GResourcePackage = "${GenerationPackage}.resources"
+    const val GResourcesClassName = "GResources"
     val classIntent = ClassName("android.content", "Intent")
     val classContext = ClassName("android.content", "Context")
     val classView = ClassName("android.view", "View")
@@ -19,7 +24,7 @@ object Constants {
     val classLayoutInflater = ClassName("android.view", "LayoutInflater")
     val classViewDataBinding = ClassName("androidx.databinding", "ViewDataBinding")
     val classDataBindingUtil = ClassName("androidx.databinding", "DataBindingUtil")
-    val GenerationPackage = "dilwar.GRecycler"
+    val GResourcesClass = ClassName(GResourcePackage, GResourcesClassName)
 
     fun getClassName(typeMirror: TypeMirror): ClassName {
         return ClassName(getPackageName(typeMirror), getOnlyClassName(typeMirror))

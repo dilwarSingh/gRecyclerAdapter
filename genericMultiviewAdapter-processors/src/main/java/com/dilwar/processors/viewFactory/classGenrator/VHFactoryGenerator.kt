@@ -1,43 +1,43 @@
 package com.dilwar.processors.viewFactory.classGenrator
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.classDataBindingUtil
-import com.dilwar.hits.Constants.classGViewType
-import com.dilwar.hits.Constants.classLayoutInflater
-import com.dilwar.hits.Constants.classView
-import com.dilwar.hits.Constants.classViewDataBinding
-import com.dilwar.hits.Constants.classViewGroup
-import com.dilwar.hits.Constants.getOnlyClassName
-import com.dilwar.hits.Validator
+import com.dilwar.common.ClassGenerator
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.GResourcesClass
+import com.dilwar.common.Constants.classDataBindingUtil
+import com.dilwar.common.Constants.classGViewType
+import com.dilwar.common.Constants.classLayoutInflater
+import com.dilwar.common.Constants.classView
+import com.dilwar.common.Constants.classViewDataBinding
+import com.dilwar.common.Constants.classViewGroup
+import com.dilwar.common.Constants.getOnlyClassName
+import com.dilwar.common.Validator
+import com.dilwar.common.firstCharSmall
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import java.io.IOException
 import javax.annotation.processing.Filer
 import javax.annotation.processing.Messager
 import javax.lang.model.element.AnnotationValue
 import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.TypeMirror
-import javax.tools.Diagnostic
+import javax.lang.model.util.Elements
 
 
-class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
-    lateinit var VH_CLASS_NAME: String
+class VHFactoryGenerator(parentClass: ClassName, filer: Filer, messager: Messager) :
+    ClassGenerator(parentClass, filer, messager) {
     lateinit var VIEW_HOLDERS_CLASS_NAME: String
     var genricTypeName: TypeName? = null
-    lateinit var parentPackageName: String
 
-    fun generate(parentClass: ClassName, element: Element) {
-        VH_CLASS_NAME = parentClass.simpleName + "VHFactory"
+    override fun generate(element: Element) {
+
         VIEW_HOLDERS_CLASS_NAME = parentClass.simpleName + "ViewHolders"
-        parentPackageName = "${Constants.GenerationPackage}.${parentClass.packageName}"
 
         genricTypeName =
             Validator.getGenricTypeNameOf(element as TypeElement, Constants.classGViewFactory)
 
         val vhClass =
-            TypeSpec.objectBuilder(VH_CLASS_NAME)
+            TypeSpec.objectBuilder(name = className())
                 .addModifiers(KModifier.PUBLIC)
                 .superclass(parentClass)
 
@@ -61,31 +61,20 @@ class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
                         val typeMirrors = value as List<AnnotationValue>
 
                         vhClass.addFunction(
-                            createMethod(VH_CLASS_NAME, typeMirrors, isBindingEnabled)
+                            createMethod(className(), typeMirrors, isBindingEnabled)
                         )
                         vhClass.addFunction(
-                            getRowTypeMethod(VH_CLASS_NAME, typeMirrors)
+                            getTypeMethod(className(), typeMirrors)
                         )
 
                     }
                 }
             }
         }
-
-
-        try {
-            FileSpec.builder(
-                "${Constants.GenerationPackage}.${parentClass.packageName}",
-                VH_CLASS_NAME
-            )
-                .addType(vhClass.build())
-                .build()
-                .writeTo(filer!!)
-        } catch (e: IOException) {
-            messager!!.printMessage(Diagnostic.Kind.ERROR, e.message)
-            e.printStackTrace()
-        }
+        buildClass(vhClass.build())
     }
+
+    override fun className() = parentClass.simpleName + "VHFactory"
 
     private fun getBindingViewMethod(): FunSpec {
 
@@ -137,20 +126,22 @@ class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
 
             val classGViewTypeName = "${cls}GViewType"
             val classRow =
-                ClassName("$parentPackageName.$VIEW_HOLDERS_CLASS_NAME", classRowName)
+                ClassName("${packageAddress()}.$VIEW_HOLDERS_CLASS_NAME", classRowName)
             val classGViewType = ClassName(packageName, classGViewTypeName)
 
+            val classTypeName = Constants.getClassName(type)
+
             codeBuilder.beginControlFlow(
-                "%T.getLayout()->",
-                classGViewType
+                "%T.${cls.firstCharSmall()}->",
+                GResourcesClass
             )
 
             codeBuilder.addStatement(
                 if (enabledDataBinding)
-                    "%T.build(getBindingView(parent,%T.getLayout()))"
+                    "%T.build(getBindingView(parent,%T().layoutId()))"
                 else
-                    "%T.build(getView(parent,%T.getLayout()))", classRow,
-                classGViewType
+                    "%T.build(getView(parent,%T().layoutId()))", classRow,
+                classTypeName
             ).endControlFlow()
 
         }
@@ -173,11 +164,12 @@ class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
 
     }
 
-    private fun getRowTypeMethod(vhClassName: String, typeMirrors: List<AnnotationValue>): FunSpec {
+    private fun getTypeMethod(vhClassName: String, typeMirrors: List<AnnotationValue>): FunSpec {
 
         val codeBuilder = CodeBlock.builder()
         //  codeBuilder.add("val viewType = getViewTypeLayoutId(data)")
-        codeBuilder.addStatement("val viewType = getViewTypeLayoutId(data)")
+        val parameter1Name = "model"
+        codeBuilder.addStatement("val viewType = getViewType($parameter1Name)")
         codeBuilder.beginControlFlow("return when(viewType)")
 
         for (typeMirror in typeMirrors) {
@@ -187,8 +179,8 @@ class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
             val packageName = "${Constants.GenerationPackage}.${Constants.getPackageName(type)}"
             val classGViewType = ClassName(packageName, classGViewTypeName)
 
-            codeBuilder.beginControlFlow("%T.getLayout() ->", classGViewType)
-                .addStatement("%T(data)", classGViewType)
+            codeBuilder.beginControlFlow("%T.${cls.firstCharSmall()} ->", GResourcesClass)
+                .addStatement("%T($parameter1Name)", classGViewType)
                 .endControlFlow()
         }
 
@@ -200,7 +192,7 @@ class VHFactoryGenerator(val filer: Filer?, val messager: Messager?) {
 
         return FunSpec.builder("getType")
             .returns(classGViewType.parameterizedBy(genricTypeName!!))
-            .addParameter(ParameterSpec.builder("data", genricTypeName!!).build())
+            .addParameter(ParameterSpec.builder(parameter1Name, genricTypeName!!).build())
             .addCode(codeBuilder.build())
             .build()
 

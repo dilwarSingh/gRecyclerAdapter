@@ -31,7 +31,7 @@ abstract class BaseMultiViewAdapter<M> : RecyclerView.Adapter<RecyclerView.ViewH
 
 
     override fun getItemViewType(position: Int): Int {
-        return (list[position] as GViewLayout).getLayoutId()
+        return (list[position] as GViewLayout).getViewType()
     }
 
     @CallSuper
@@ -41,17 +41,5 @@ abstract class BaseMultiViewAdapter<M> : RecyclerView.Adapter<RecyclerView.ViewH
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (list[position] as GViewLayout).onBindViewHolder(holder)
-    }
-}
-
-
-class Dog {
-
-    fun bark() {
-        Log.d(TAG, "woof! woof!")
-    }
-
-    companion object {
-        private const val TAG = "Sample"
     }
 }

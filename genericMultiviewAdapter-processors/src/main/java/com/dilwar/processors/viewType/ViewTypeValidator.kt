@@ -1,7 +1,7 @@
 package com.dilwar.processors.viewType
 
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Validator
+import com.dilwar.common.Constants
+import com.dilwar.common.Validator
 import javax.annotation.processing.Messager
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
@@ -34,7 +34,7 @@ object ViewTypeValidator : Validator() {
         if (typeMirror.isEmpty()) {
             messager!!.printMessage(
                 Diagnostic.Kind.ERROR,
-                "Class doesn't implement anything implement it with GViewType"
+                "Class must implement GViewType interface"
             )
             return true
         } else {

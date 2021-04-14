@@ -1,31 +1,26 @@
 package com.dilwar.processors.viewFactory.classGenrator
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.Constants
-import com.dilwar.hits.Constants.classView
-import com.dilwar.hits.Constants.classViewDataBinding
-import com.dilwar.hits.Constants.getOnlyClassName
+import com.dilwar.common.ClassGenerator
+import com.dilwar.common.Constants
+import com.dilwar.common.Constants.classView
+import com.dilwar.common.Constants.classViewDataBinding
+import com.dilwar.common.Constants.getOnlyClassName
 import com.squareup.kotlinpoet.*
-import java.io.IOException
 import javax.annotation.processing.Filer
 import javax.annotation.processing.Messager
 import javax.lang.model.element.AnnotationValue
 import javax.lang.model.element.Element
 import javax.lang.model.type.TypeMirror
-import javax.tools.Diagnostic
+import javax.lang.model.util.Elements
 
 
-class ViewHoldersGenerator(val filer: Filer?, val messager: Messager?) {
-    lateinit var VIEW_HOLDERS_CLASS_NAME: String
-    lateinit var parentPackageName: String
+class ViewHoldersGenerator(parentClass: ClassName, filer: Filer, messager: Messager) :
+    ClassGenerator(parentClass, filer, messager) {
 
-    fun generate(parentClass: ClassName, element: Element) {
-        VIEW_HOLDERS_CLASS_NAME = parentClass.simpleName + "ViewHolders"
-        parentPackageName = "${Constants.GenerationPackage}.${parentClass.packageName}"
-
-
+    override fun generate(element: Element) {
         val viewHolderClass =
-            TypeSpec.classBuilder(VIEW_HOLDERS_CLASS_NAME)
+            TypeSpec.classBuilder(className())
                 .addModifiers(KModifier.SEALED)
 
         val enableDataBinding =
@@ -44,14 +39,14 @@ class ViewHoldersGenerator(val filer: Filer?, val messager: Messager?) {
                             if (enableDataBinding)
                                 viewHolderClass.addType(
                                     generateBindingSubClass(
-                                        VIEW_HOLDERS_CLASS_NAME,
+                                        className(),
                                         typeMirror.value as TypeMirror
                                     )
                                 )
                             else
                                 viewHolderClass.addType(
                                     generateSubClass(
-                                        VIEW_HOLDERS_CLASS_NAME,
+                                        className(),
                                         typeMirror.value as TypeMirror
                                     )
                                 )
@@ -63,22 +58,16 @@ class ViewHoldersGenerator(val filer: Filer?, val messager: Messager?) {
 
         }
 
-        try {
-            FileSpec.builder(parentPackageName, VIEW_HOLDERS_CLASS_NAME)
-                .addType(viewHolderClass.build())
-                .build()
-                .writeTo(filer!!)
-        } catch (e: IOException) {
-            messager!!.printMessage(Diagnostic.Kind.ERROR, e.message)
-            e.printStackTrace()
-        }
+        buildClass(viewHolderClass.build())
     }
+
+    override fun className() = parentClass.simpleName + "ViewHolders"
 
     private fun generateSubClass(parentClass: String, type: TypeMirror): TypeSpec {
 
         val cls = getOnlyClassName(type)
         val subClassName = "${cls}Row"
-        val returnValue = ClassName("$parentPackageName.$parentClass", subClassName)
+        val returnValue = ClassName("${packageAddress()}.$parentClass", subClassName)
         val compan = TypeSpec.companionObjectBuilder()
             .addFunction(
                 FunSpec
@@ -111,7 +100,7 @@ class ViewHoldersGenerator(val filer: Filer?, val messager: Messager?) {
 
         val cls = getOnlyClassName(type)
         val subClassName = "${cls}Row"
-        val returnValue = ClassName("$parentPackageName.$parentClass", subClassName)
+        val returnValue = ClassName("${packageAddress()}.$parentClass", subClassName)
         val compan = TypeSpec.companionObjectBuilder()
             .addFunction(
                 FunSpec

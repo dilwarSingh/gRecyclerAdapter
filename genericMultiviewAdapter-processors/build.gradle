@@ -12,6 +12,7 @@ dependencies {
 
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion
+
 buildscript {
     repositories {
         mavenCentral()

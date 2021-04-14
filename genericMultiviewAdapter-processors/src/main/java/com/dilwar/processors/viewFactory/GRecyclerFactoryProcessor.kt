@@ -1,7 +1,7 @@
 package com.dilwar.processors.viewFactory
 
 import com.dilwar.annotations.GRecyclerViewFactory
-import com.dilwar.hits.PreProcessor
+import com.dilwar.common.PreProcessor
 import com.dilwar.processors.viewFactory.classGenrator.RecyclerAdpaterGenerator
 import com.dilwar.processors.viewFactory.classGenrator.VHFactoryGenerator
 import com.dilwar.processors.viewFactory.classGenrator.ViewHoldersGenerator
@@ -24,9 +24,9 @@ class GRecyclerFactoryProcessor : PreProcessor(GRecyclerViewFactory::class) {
 
             val parentClass = ClassName(packageName, activityName)
 
-            ViewHoldersGenerator(filer, messager).generate(parentClass, element)
-            VHFactoryGenerator(filer, messager).generate(parentClass, element)
-            RecyclerAdpaterGenerator(filer, messager).generate(parentClass, element)
+            ViewHoldersGenerator(parentClass,filer, messager).generate(element)
+            VHFactoryGenerator(parentClass,filer, messager).generate(element)
+            RecyclerAdpaterGenerator(parentClass,filer, messager).generate(element)
 
         }
         return true

@@ -7,10 +7,12 @@ import com.dilwar.multiViewAdapter.GViewType
 import com.sample.genericrecycleradapter.R
 import com.sample.genericrecycleradapter.databinding.ItemSendMessageBinding
 import com.sample.genericrecycleradapter.multiAdapter.MessageModel
-import dilwar.GRecycler.com.sample.genericrecycleradapter.multiAdapter.ChatFactoryViewHolders
+import g.recycler.com.sample.genericrecycleradapter.multiAdapter.ChatFactoryViewHolders
 
-@GRecyclerViewType(layout = R.layout.item_send_message)
+@GRecyclerViewType
 open class SendMessageType : GViewType<MessageModel> {
+
+    override fun layoutId() = R.layout.item_send_message;
 
     override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, data: MessageModel) {
         val holder =

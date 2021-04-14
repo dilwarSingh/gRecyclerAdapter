@@ -1,7 +1,7 @@
 package com.dilwar.processors.viewFactory
 
-import com.dilwar.hits.Constants.classGViewFactory
-import com.dilwar.hits.Validator
+import com.dilwar.common.Constants.classGViewFactory
+import com.dilwar.common.Validator
 import javax.annotation.processing.Messager
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind

@@ -8,9 +8,10 @@ import com.dilwar.multiViewAdapter.GViewType
 import com.sample.genericrecycleradapter.R
 import com.sample.genericrecycleradapter.multiAdapter.MessageModel
 
-@GRecyclerViewType(layout = R.layout.item_recieve_message)
-open class RecieveMessageType : GViewType<MessageModel> {
+@GRecyclerViewType
+open class ReceiveMessageType : GViewType<MessageModel> {
 
+    override fun layoutId() = R.layout.item_recieve_message;
 
     override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, data: MessageModel) {
 
