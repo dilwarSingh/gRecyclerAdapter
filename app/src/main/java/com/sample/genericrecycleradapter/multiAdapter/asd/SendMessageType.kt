@@ -14,10 +14,10 @@ open class SendMessageType : GViewType<MessageModel> {
 
     override fun layoutId() = R.layout.item_send_message;
 
-    override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, data: MessageModel) {
+    override fun onBindViewHolder(recyclerViewHolder: RecyclerView.ViewHolder, model: MessageModel) {
         val holder =
             recyclerViewHolder as ChatFactoryViewHolders.SendMessageTypeRow
         val binding = holder.binding as ItemSendMessageBinding
-        binding.text.text = data.msg
+        binding.text.text = model.msg
     }
 }

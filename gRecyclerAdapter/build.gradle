@@ -1,0 +1,150 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.kezong.fat-aar'
+apply plugin: 'maven-publish'
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
+
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        }
+    }
+    defaultConfig {
+        minSdkVersion minSdk
+        targetSdkVersion minSdk
+        versionCode versionCode
+        versionName versionName
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled minify
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility = jdkVersion
+        targetCompatibility = jdkVersion
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.recyclerview:recyclerview:$recyclerView"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:$ktx"
+    //embed project(path: ':gRecyclerAdapter-annotations', configuration: 'default')
+    //implementation project(path: ':gRecyclerAdapter-annotations')
+    //kapt project(path: ':gRecyclerAdapter-processors')
+
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = groupIdNameP
+                artifactId = 'gRecyclerAdapter'
+                version = libVersion
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = groupIdNameP
+                artifactId = 'gRecyclerAdapter-debug'
+                version = libVersion
+            }
+        }
+    }
+}
+
+group = groupIdNameP
+version = libVersion
+
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'gRecyclerAdapter'
+            description 'A library for finding out whether'
+            url 'https://github.com/dilwarSingh/gRecyclerAdapter'
+            inceptionYear inception_year
+
+            packaging 'aar'
+            groupId 'in.dilwar'
+            artifactId 'gRecyclerAdapter'
+            version libVersion
+
+            licenses {
+                license {
+                    name 'GPL-3.0-only'
+                    url 'https://opensource.org/licenses/GPL-3.0'
+                }
+            }
+             scm {
+                connection 'https://github.com/dilwarSingh/gRecyclerAdapter.git'
+                url 'https://github.com/dilwarSingh/gRecyclerAdapter'
+
+            }
+            developers {
+                developer {
+                    id = 'dilwarSingh'
+                    name 'dilwarSingh'
+                    //gradlew install bintrayUpload
+                }
+            }
+        }
+    }
+}
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = localProperties.getProperty('user')
+    key = localProperties.get('key')
+    configurations = ['archives']
+    pkg {
+        repo = 'genericRecyclerAdapter'
+        name = 'genericRecyclerAdapter'
+        //   userOrg = 'evacuees'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/dilwarSingh/genericRecyclerViewAdapterSample.git'
+        publish = true
+        version {
+            name = libVersion
+            desc = 'genericRecyclerAdapter'
+            released = new Date()
+            vcsTag = "v$libVersion"
+        }
+    }
+}
